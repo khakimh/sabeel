@@ -1,0 +1,43 @@
+@import 'tailwindcss';
+@config "../../tailwind.config.js";
+
+/* Ported verbatim from the <style> blocks embedded in every Stitch-exported
+   screen (Beranda, Kajian, Masjid, Perpustakaan, Profil). Do not add/change
+   rules here without a design change request — this is the "as designed"
+   baseline. In particular, do NOT add a font-size theme scale to make
+   text-headline-md/text-body-lg/etc "work" — those utilities are already
+   no-ops in the real Stitch export (no fontSize theme key was ever wired up
+   there either), confirmed against the actual Stitch screenshot. */
+@layer base {
+  body {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+.active .material-symbols-outlined {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+/* Present on every screen's artboard in Stitch (body min-height guard) */
+body {
+  min-height: max(884px, 100dvh);
+}
