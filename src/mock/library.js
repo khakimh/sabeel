@@ -3,6 +3,16 @@
 // via the Stitch MCP). Library page's full video-list data will be added to
 // this same file when that page's increment lands.
 
+/**
+ * @typedef {object} VideoItem
+ * @property {string} id
+ * @property {string} thumbnail
+ * @property {string} duration - Display string, e.g. "45:20".
+ * @property {string} title
+ * @property {string} ustadz
+ */
+
+/** @type {VideoItem[]} */
 export const homeCarouselVideos = [
   {
     id: 'home-online-1',

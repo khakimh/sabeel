@@ -2,6 +2,7 @@ import Icon from './Icon'
 
 // Home's "Kajian Online Terbaru" carousel card. Library's full-width list
 // variant is added when the Library page's own increment lands.
+/** @param {{ video: import('../mock/library').VideoItem }} props */
 export function VideoCardCarousel({ video }) {
   return (
     <div className="min-w-[220px] w-[220px] flex flex-col gap-3 snap-start group cursor-pointer">

@@ -1,9 +1,32 @@
 // Mock kajian data. Content transcribed verbatim from the Stitch "Beranda
-// Sabeel" screen (verified live via the Stitch MCP, project
-// 16403309371103694612) — same titles, images, ustadz names, times.
-// Kajian page's full schedule/filters/date-strip data will be added to this
-// same file when that page's increment lands.
+// Sabeel" and "Jadwal Kajian" screens (verified live via the Stitch MCP,
+// project 16403309371103694612) — same titles, images, ustadz names, times.
 
+/**
+ * @typedef {object} NearbyKajianItem
+ * @property {string} id
+ * @property {string} image
+ * @property {string} distanceKm - Display string, e.g. "1.2 km".
+ * @property {boolean} todayBadge - Whether to show the "Hari Ini" badge.
+ * @property {string} title
+ * @property {string} ustadz
+ * @property {string} time
+ */
+
+/**
+ * @typedef {object} TodayKajianItem
+ * @property {string} id
+ * @property {string} image
+ * @property {string} category
+ * @property {'accent'|'neutral'} categoryStyle
+ * @property {string} title
+ * @property {string} mosque
+ * @property {string} time
+ * @property {boolean} bookmarked - Initial bookmark state (BookmarkButton
+ *   persists toggles to localStorage after this).
+ */
+
+/** @type {NearbyKajianItem[]} */
 export const nearbyKajian = [
   {
     id: 'nearby-1',
@@ -27,6 +50,35 @@ export const nearbyKajian = [
   },
 ]
 
+/**
+ * @typedef {object} ScheduleKajianItem
+ * @property {string} id
+ * @property {string} category
+ * @property {boolean} live - Whether to show the pulsing "Sedang
+ *   Berlangsung" badge and the error-colored top accent bar.
+ * @property {string} title
+ * @property {string} ustadzName
+ * @property {string} ustadzAvatar
+ * @property {string} time - Display string, e.g. "16:00 - Selesai (Ba'da Ashar)".
+ * @property {string} mosque
+ * @property {string} address
+ * @property {string} distance - Display string, e.g. "800 m".
+ * @property {'walk'|'car'} distanceMode - Selects the distance icon.
+ * @property {boolean} bookmarked - Initial bookmark state (BookmarkButton
+ *   persists toggles to localStorage after this).
+ */
+
+/**
+ * @typedef {object} CalendarDay
+ * @property {number} date
+ * @property {string} day - 3-letter Indonesian day abbreviation, e.g. "SEN".
+ * @property {boolean} isWeekend
+ * @property {boolean} hasKajian - Whether to render the small dot indicator.
+ * @property {boolean} selected - Initially-selected day (DateStrip owns the
+ *   live selection state after this).
+ */
+
+/** @type {TodayKajianItem[]} */
 export const todayKajian = [
   {
     id: 'today-1',
@@ -50,4 +102,51 @@ export const todayKajian = [
     time: 'Subuh',
     bookmarked: true,
   },
+]
+
+/** @type {ScheduleKajianItem[]} */
+export const scheduleKajian = [
+  {
+    id: 'schedule-1',
+    category: 'Aqidah',
+    live: true,
+    title: 'Mengenal Nama & Sifat Allah (Asmaul Husna)',
+    ustadzName: 'Ust. Dr. Firanda Andirja, MA',
+    ustadzAvatar:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDEJgokDFK4AwzCi-Q3OwucXR0dbsiFWqaWrK3e7ebZIybTg2th4x7BlajCd89k2g90Gk7yOVY8XaLrlkH3bSJCwMaOtABcGytG2V4WrhR5-ATBe6cS-oLW0mK_8Ti0dYPJs9xfDJZCH909SQl3OiTbj5I_l7AsyqLfPniLnBWPdaFL_Ot8GxF814beCx7um-L1khwgNblcY-QHnPx6HfzTYu0VnhddryYStwyw4KPGGM_KRMqhomstcw',
+    time: "16:00 - Selesai (Ba'da Ashar)",
+    mosque: 'Masjid Astra',
+    address: 'Sunter, Jakarta Utara',
+    distance: '800 m',
+    distanceMode: 'walk',
+    bookmarked: true,
+  },
+  {
+    id: 'schedule-2',
+    category: 'Sirah Nabawiyah',
+    live: false,
+    title: 'Perang Badar: Pelajaran Keimanan dari Pasukan Kecil',
+    ustadzName: 'Ust. Nuzul Dzikri, Lc',
+    ustadzAvatar:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDHBe5IxCWd3rTS0ribikeiGASZpJSgp8n01S1LPyYRvMlNyDNzImZNKFo88lfCDN_OxcWxW2psK70HW6MAyMdKb_s6VTwgcpPeAqn_S9OTLYPhVDa1I2GE8-LN6oVCnJKIn64HKzb36A5qe-ee5QQoSucPwaOfmwrH7hWUHBHDiQm-3kRA71dQlkY23zsPqIifhzU0hbysSjIAj1BQWe4WC5H9XC1Cd5_etP-IqQ02iniNW_jSRmHcPw',
+    time: "18:15 - 19:30 (Ba'da Maghrib)",
+    mosque: 'Masjid Nurul Iman',
+    address: 'Blok M Square, Kebayoran Baru',
+    distance: '2.4 km',
+    distanceMode: 'car',
+    bookmarked: false,
+  },
+]
+
+export const kajianCalendarMonthLabel = 'Maret 2024'
+
+/** @type {CalendarDay[]} */
+export const kajianCalendarDays = [
+  { date: 11, day: 'SEN', isWeekend: false, hasKajian: false, selected: false },
+  { date: 12, day: 'SEL', isWeekend: false, hasKajian: true, selected: true },
+  { date: 13, day: 'RAB', isWeekend: false, hasKajian: true, selected: false },
+  { date: 14, day: 'KAM', isWeekend: false, hasKajian: true, selected: false },
+  { date: 15, day: 'JUM', isWeekend: false, hasKajian: false, selected: false },
+  { date: 16, day: 'SAB', isWeekend: true, hasKajian: true, selected: false },
+  { date: 17, day: 'MIN', isWeekend: true, hasKajian: false, selected: false },
 ]
