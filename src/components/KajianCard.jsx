@@ -62,7 +62,7 @@ export function KajianCardListItem({ item }) {
           <BookmarkButton
             id={item.id}
             defaultBookmarked={item.bookmarked}
-            className="p-1 hover:text-primary transition-colors focus:outline-none"
+            className="p-1"
             iconClassName="text-[20px]"
             inactiveClassName="text-outline-variant"
           />
@@ -117,7 +117,7 @@ export function KajianCardSchedule({ item }) {
         <BookmarkButton
           id={item.id}
           defaultBookmarked={item.bookmarked}
-          className="text-on-surface-variant hover:text-primary transition-colors mt-1"
+          className="text-on-surface-variant mt-1"
           inactiveClassName=""
         />
       </div>

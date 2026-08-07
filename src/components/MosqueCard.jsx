@@ -28,7 +28,7 @@ export function MosqueCard({ mosque }) {
         <BookmarkButton
           id={mosque.id}
           defaultBookmarked={mosque.bookmarked}
-          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-surface-container-lowest/80 backdrop-blur flex items-center justify-center text-on-surface hover:text-primary transition-colors"
+          className="absolute top-3 right-3 w-8 h-8 rounded-full bg-surface-container-lowest/80 backdrop-blur flex items-center justify-center text-on-surface"
           iconClassName="!text-[20px]"
           inactiveClassName=""
           activeClassName=""
