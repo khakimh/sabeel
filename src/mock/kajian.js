@@ -134,7 +134,12 @@ export const scheduleKajian = [
     address: 'Blok M Square, Kebayoran Baru',
     distance: '2.4 km',
     distanceMode: 'car',
-    bookmarked: false,
+    // Flipped true (was false) so the new Shortlist page's mock data has
+    // more than one bookmarked item to display — reusing this existing
+    // record rather than inventing a new one, per that feature's own
+    // instructions. Side effect, disclosed rather than silent: this card
+    // now also shows as bookmarked by default on the Kajian page itself.
+    bookmarked: true,
   },
 ]
 

@@ -34,3 +34,15 @@ export function useBookmark(id, defaultBookmarked = false) {
 
   return [bookmarked, toggle]
 }
+
+// Read-only, non-hook accessor for the same storage this hook manages —
+// added for Shortlist, which needs to know what's currently bookmarked
+// from a service function (not a component), and must not read
+// localStorage a second, independent way to get that answer. This is the
+// "one source of truth for bookmarked Kajian" the feature is built around:
+// every write still goes through `useBookmark`'s `toggle` above; this only
+// adds a read path onto the exact same storage.
+export function isBookmarked(id, defaultBookmarked = false) {
+  const overrides = readOverrides()
+  return id in overrides ? overrides[id] : defaultBookmarked
+}
