@@ -9,14 +9,23 @@ import { getHomeCarouselVideos } from '../services/libraryService'
 // Matches the Stitch "Beranda Sabeel" screen exactly (verified live via the
 // Stitch MCP, project 16403309371103694612): greeting, search bar, "Kajian
 // Terdekat" carousel, "Kajian Hari Ini" list, "Kajian Online Terbaru" carousel.
+//
+// Density pass (explicitly requested): outer section gap tightened from
+// gap-xl to gap-lg, the greeting's own redundant mt-md dropped (the outer
+// container's mt-sm already provides the space below the fixed header —
+// having both stacked 24px of top margin before any content), and the
+// third section's extra mt-4 removed since it was duplicating the spacing
+// the flex `gap` already provides between every section — same "keep
+// spacing consistent" fix as Kajian's overflow bug was, just cosmetic
+// here rather than a real bug.
 export default function Home() {
   const { nearby, today } = getHomeKajian()
   const onlineLatest = getHomeCarouselVideos()
 
   return (
-    <div className="flex flex-col w-full px-md mt-sm gap-xl">
+    <div className="flex flex-col w-full px-md mt-sm gap-lg">
       {/* Greeting */}
-      <div className="flex flex-col gap-2 mt-md">
+      <div className="flex flex-col gap-1">
         <h1 className="font-display-lg-mobile text-display-lg-mobile text-on-surface">Assalamu&apos;alaikum 👋</h1>
         <p className="font-body-lg text-body-lg text-on-surface-variant">Temukan kajian di sekitar Anda.</p>
       </div>
@@ -24,7 +33,7 @@ export default function Home() {
       <SearchBar placeholder="Search kajian, ustadz, or mosque..." />
 
       {/* Kajian Terdekat */}
-      <section className="flex flex-col gap-md">
+      <section className="flex flex-col gap-sm">
         <SectionHeader title="Kajian Terdekat" action="Lihat Semua" />
         <HorizontalScroller>
           {nearby.map((item) => (
@@ -34,9 +43,9 @@ export default function Home() {
       </section>
 
       {/* Kajian Hari Ini */}
-      <section className="flex flex-col gap-md">
+      <section className="flex flex-col gap-sm">
         <SectionHeader title="Kajian Hari Ini" />
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
           {today.map((item) => (
             <KajianCardListItem key={item.id} item={item} />
           ))}
@@ -44,7 +53,7 @@ export default function Home() {
       </section>
 
       {/* Kajian Online Terbaru */}
-      <section className="flex flex-col gap-md mt-4">
+      <section className="flex flex-col gap-sm">
         <SectionHeader title="Kajian Online Terbaru" />
         <HorizontalScroller>
           {onlineLatest.map((video) => (

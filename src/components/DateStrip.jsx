@@ -11,20 +11,24 @@ import Icon from './Icon'
 // markup exactly (not a <button>) — there's no second month to switch to
 // yet, so making it a real button would be exactly the kind of unfulfilled
 // affordance the Masjid card's href="#" anchor was avoided for.
+//
+// Density pass (explicitly requested): header/row spacing trimmed one
+// step; the w-11 h-11 (44px) day circle itself — the actual touch target —
+// is untouched.
 /** @param {{ title: string, monthLabel: string, days: import('../mock/kajian').CalendarDay[] }} props */
 export default function DateStrip({ title, monthLabel, days }) {
   const [selectedDate, setSelectedDate] = useState(days.find((d) => d.selected)?.date ?? days[0]?.date)
 
   return (
     <div>
-      <div className="flex justify-between items-end px-md mb-4">
+      <div className="flex justify-between items-end px-md mb-3">
         <h2 className="font-headline-md text-headline-md text-on-surface">{title}</h2>
         <span className="font-label-md text-label-md text-primary flex items-center gap-1 active:opacity-70 transition-opacity">
           {monthLabel}
           <Icon name="expand_more" className="text-[18px]" />
         </span>
       </div>
-      <div className="flex gap-4 overflow-x-auto pb-4 px-md items-center justify-between [&::-webkit-scrollbar]:hidden">
+      <div className="flex gap-3 overflow-x-auto pb-3 px-md items-center justify-between [&::-webkit-scrollbar]:hidden">
         {days.map((d) => {
           const isSelected = d.date === selectedDate
           return (

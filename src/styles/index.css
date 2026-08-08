@@ -7,11 +7,18 @@
    baseline. In particular, do NOT add a font-size theme scale to make
    text-headline-md/text-body-lg/etc "work" — those utilities are already
    no-ops in the real Stitch export (no fontSize theme key was ever wired up
-   there either), confirmed against the actual Stitch screenshot. */
+   there either), confirmed against the actual Stitch screenshot.
+
+   Exception: `line-height` below was added for the app-wide UI density
+   pass (explicitly requested) — it tightens every wrapped title and
+   stacked meta row at once without touching any individual font-size, and
+   is deliberately the ONLY typography lever changed globally; sizes/colors
+   are untouched everywhere. */
 @layer base {
   body {
     -webkit-tap-highlight-color: transparent;
     scroll-behavior: smooth;
+    line-height: 1.35;
   }
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);

@@ -12,11 +12,15 @@ import { getLibraryVideos } from '../services/libraryService'
 // available view, so it's a static label rather than a button with
 // nothing to toggle away from (Stitch's own export doesn't wire either of
 // these up as an actual switcher either).
+//
+// Density pass (explicitly requested): outer/section gaps trimmed one
+// step so more VideoCardListItems fit above the fold; the tab row's own
+// vertical padding is untouched (already a comfortable touch target).
 export default function Library() {
   const videos = getLibraryVideos()
 
   return (
-    <div className="flex flex-col w-full gap-md">
+    <div className="flex flex-col w-full gap-sm">
       {/* Content type tabs */}
       <div className="px-md flex gap-sm overflow-x-auto py-sm [&::-webkit-scrollbar]:hidden">
         <span className="bg-primary text-on-primary font-label-md px-md py-sm rounded-full whitespace-nowrap shadow-sm flex items-center gap-xs">
@@ -38,7 +42,7 @@ export default function Library() {
       </div>
 
       {/* Section header */}
-      <div className="px-md flex items-center justify-between mt-sm">
+      <div className="px-md flex items-center justify-between mt-1">
         <h2 className="font-headline-md text-on-surface">Kajian Terbaru</h2>
         <button
           type="button"
@@ -50,7 +54,7 @@ export default function Library() {
       </div>
 
       {/* Video list */}
-      <div className="px-md flex flex-col gap-md">
+      <div className="px-md flex flex-col gap-sm">
         {videos.map((video) => (
           <VideoCardListItem key={video.id} video={video} />
         ))}

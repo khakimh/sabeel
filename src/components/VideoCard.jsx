@@ -2,12 +2,15 @@ import Icon from './Icon'
 
 // Home's "Kajian Online Terbaru" carousel card. See VideoCardListItem below
 // for Library's full-width list variant.
+//
+// Density pass (explicitly requested): thumbnail height and card gap
+// trimmed one step on both variants below.
 /** @param {{ video: import('../mock/library').VideoItem }} props */
 export function VideoCardCarousel({ video }) {
   return (
-    <div className="min-w-[220px] w-[220px] flex flex-col gap-3 snap-start group cursor-pointer">
+    <div className="min-w-[220px] w-[220px] flex flex-col gap-2 snap-start group cursor-pointer">
       <div
-        className="w-full h-32 rounded-xl bg-cover bg-center relative shadow-[0_4px_20px_rgba(0,0,0,0.05)]"
+        className="w-full h-28 rounded-xl bg-cover bg-center relative shadow-[0_4px_20px_rgba(0,0,0,0.05)]"
         style={{ backgroundImage: `url('${video.thumbnail}')` }}
       >
         <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors rounded-xl flex items-center justify-center">
@@ -43,7 +46,7 @@ export function VideoCardCarousel({ video }) {
 export function VideoCardListItem({ video }) {
   return (
     <div className="bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden flex flex-col group cursor-pointer transition-transform active:scale-[0.98]">
-      <div className="relative w-full h-48 bg-surface-container">
+      <div className="relative w-full h-40 bg-surface-container">
         <img className="w-full h-full object-cover" src={video.thumbnail} alt="" />
         <div className="absolute bottom-2 right-2 bg-inverse-surface/80 backdrop-blur-sm text-inverse-on-surface font-label-sm px-2 py-1 rounded-md text-[11px]">
           {video.duration}
@@ -60,19 +63,19 @@ export function VideoCardListItem({ video }) {
           </div>
         )}
       </div>
-      <div className="p-4 flex gap-sm">
+      <div className="p-3 flex gap-sm">
         <img className="w-10 h-10 rounded-full object-cover shrink-0" src={video.avatar} alt="" />
         <div className="flex flex-col">
           <h3 className="font-body-lg font-semibold text-on-surface line-clamp-2 leading-snug group-active:text-primary transition-colors">
             {video.title}
           </h3>
-          <p className="font-body-sm text-on-surface-variant mt-1">{video.ustadzName}</p>
+          <p className="font-body-sm text-on-surface-variant mt-0.5">{video.ustadzName}</p>
           {video.live ? (
-            <div className="flex items-center gap-2 mt-2 text-[12px] text-error font-medium">
+            <div className="flex items-center gap-2 mt-1 text-[12px] text-error font-medium">
               <span>{video.views}</span>
             </div>
           ) : (
-            <div className="flex items-center gap-2 mt-2 text-[12px] text-outline">
+            <div className="flex items-center gap-2 mt-1 text-[12px] text-outline">
               <span>{video.views}</span>
               <div className="w-1 h-1 rounded-full bg-outline-variant" />
               <span>{video.timestamp}</span>

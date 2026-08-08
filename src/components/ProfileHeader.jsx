@@ -11,11 +11,16 @@ import Icon from './Icon'
 // (the Masjid card's href="#"). "Hubungkan Google Calendar" IS a real
 // <button> in Stitch's export (full press/shadow treatment), so it stays
 // one here too — inert for now, same as Home's "Lihat Semua".
+//
+// Density pass (explicitly requested): vertical padding/margins trimmed
+// one step and the CTA's vertical padding reduced slightly; avatar size
+// and the edit badge are untouched (not spacing, and not called out for
+// this pass).
 /** @param {{ profile: import('../services/profileService').Profile }} props */
 export default function ProfileHeader({ profile }) {
   return (
-    <div className="px-4 py-8 flex flex-col items-center">
-      <div className="relative mb-6">
+    <div className="px-4 py-6 flex flex-col items-center">
+      <div className="relative mb-4">
         <div className="w-28 h-28 rounded-full overflow-hidden shadow-sm bg-surface-container-high border-[4px] border-surface">
           <img alt={`Profile Picture of ${profile.name}`} className="w-full h-full object-cover" src={profile.avatar} />
         </div>
@@ -30,7 +35,7 @@ export default function ProfileHeader({ profile }) {
       </p>
       <button
         type="button"
-        className="mt-8 bg-primary text-on-primary font-label-md text-label-md px-6 py-4 rounded-full flex items-center justify-center gap-2 w-full max-w-[280px] shadow-sm hover:shadow-md transition-shadow active:scale-95 transition-transform"
+        className="mt-5 bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-full flex items-center justify-center gap-2 w-full max-w-[280px] shadow-sm hover:shadow-md transition-shadow active:scale-95 transition-transform"
       >
         <Icon name="calendar_today" />
         Hubungkan Google Calendar

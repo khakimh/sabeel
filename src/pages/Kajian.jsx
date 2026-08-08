@@ -20,6 +20,11 @@ import { getKajianSchedule, KAJIAN_QUICK_FILTERS } from '../services/kajianServi
 // meaning anything — see docs/architecture.md's Tailwind/Reusability
 // conventions. If a future screen needs this exact same treatment, that's
 // the point to extract it.
+//
+// Density pass (explicitly requested): search/filter section padding and
+// the schedule sheet's top padding/margin trimmed one step; chip height
+// (h-9, already near the 44px comfortable-touch floor) and the day-circle
+// size in DateStrip are untouched.
 export default function Kajian() {
   const { calendar, schedule } = getKajianSchedule()
   const [activeQuickFilter, setActiveQuickFilter] = useState(KAJIAN_QUICK_FILTERS[0])
@@ -27,14 +32,14 @@ export default function Kajian() {
   return (
     <div className="flex flex-col w-full">
       {/* Search Section */}
-      <div className="px-md pt-md pb-sm">
+      <div className="px-md pt-sm pb-xs">
         <div className="relative w-full shadow-sm rounded-xl">
           <Icon name="search" className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant" />
           <input
             type="text"
             placeholder="Cari ustaz, tema, atau masjid..."
             aria-label="Cari ustaz, tema, atau masjid..."
-            className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-surface-container-lowest text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary/50 font-body-lg text-body-lg transition-all shadow-[0_2px_10px_rgba(0,0,0,0.02)]"
+            className="w-full pl-11 pr-4 py-3 rounded-xl bg-surface-container-lowest text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary/50 font-body-lg text-body-lg transition-all shadow-[0_2px_10px_rgba(0,0,0,0.02)]"
           />
           <button
             type="button"
@@ -47,7 +52,7 @@ export default function Kajian() {
       </div>
 
       {/* Filter Chips */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-3 pt-1 px-md [&::-webkit-scrollbar]:hidden">
+      <div className="flex items-center gap-2 overflow-x-auto pb-2 pt-1 px-md [&::-webkit-scrollbar]:hidden">
         <button
           type="button"
           aria-label="Filter lanjutan"
@@ -77,17 +82,17 @@ export default function Kajian() {
       </div>
 
       {/* Date Selector + Schedule Sheet */}
-      <div className="bg-surface-container-lowest shadow-[0_4px_20px_rgba(0,0,0,0.02)] py-4 mt-2 rounded-t-3xl relative z-10 flex-1 min-h-[calc(100vh-200px)]">
+      <div className="bg-surface-container-lowest shadow-[0_4px_20px_rgba(0,0,0,0.02)] py-3 mt-1 rounded-t-3xl relative z-10 flex-1 min-h-[calc(100vh-200px)]">
         <DateStrip title="Jadwal Kajian" monthLabel={calendar.monthLabel} days={calendar.days} />
 
-        <div className="h-1.5 w-12 bg-surface-container mx-auto rounded-full mb-4" />
+        <div className="h-1.5 w-12 bg-surface-container mx-auto rounded-full mb-3" />
 
-        <div className="flex flex-col gap-4 px-md pb-xl">
+        <div className="flex flex-col gap-3 px-md pb-lg">
           {schedule.map((item) => (
             <KajianCardSchedule key={item.id} item={item} />
           ))}
 
-          <div className="flex flex-col items-center justify-center py-6 gap-2 text-on-surface-variant opacity-80">
+          <div className="flex flex-col items-center justify-center py-4 gap-2 text-on-surface-variant opacity-80">
             <Icon name="mosque" className="text-[32px]" />
             <p className="font-body-sm text-body-sm text-center max-w-[200px]">
               Temukan lebih banyak majelis ilmu di sekitarmu.

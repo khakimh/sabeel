@@ -8,17 +8,20 @@ import Icon from './Icon'
 // a new visual language for this page. Generic enough to be worth keeping
 // as a real component: any future static/informational page (Help,
 // Privacy, Terms) would want the same icon+title+body card shape.
+// Density pass (explicitly requested): padding and internal gaps trimmed
+// one step; leading-relaxed → leading-snug on the body text (tighter
+// line-height, same font-size).
 /** @param {{ icon: string, title: string, children: React.ReactNode }} props */
 export default function InfoCard({ icon, title, children }) {
   return (
-    <div className="bg-surface-container-lowest rounded-[18px] shadow-sm p-lg flex flex-col gap-md">
+    <div className="bg-surface-container-lowest rounded-[18px] shadow-sm p-md flex flex-col gap-sm">
       <div className="flex items-center gap-3">
         <div className="w-10 h-10 rounded-full bg-primary-container/20 text-primary flex items-center justify-center shrink-0">
           <Icon name={icon} />
         </div>
         <h2 className="font-headline-md text-headline-md text-on-surface">{title}</h2>
       </div>
-      <div className="flex flex-col gap-3 font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+      <div className="flex flex-col gap-2 font-body-lg text-body-lg text-on-surface-variant leading-snug">
         {children}
       </div>
     </div>

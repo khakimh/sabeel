@@ -10,9 +10,12 @@ import InfoCard from '../components/InfoCard'
 // The sr-only h1 gives the page a real document-structure landmark distinct
 // from AppHeader's chrome (which is a styled span, not a heading) — the 4
 // section titles below are h2s under it.
+//
+// Density pass (explicitly requested): page padding and inter-card gap
+// trimmed one step.
 export default function About() {
   return (
-    <div className="flex flex-col w-full px-md py-md gap-md">
+    <div className="flex flex-col w-full px-md py-sm gap-sm">
       <h1 className="sr-only">Tentang Sabeel</h1>
 
       <InfoCard icon="info" title="Tentang Sabeel">
@@ -53,7 +56,7 @@ export default function About() {
           tepat atau perlu diperbaiki, mohon ingatkan developers di sini.&quot;
         </p>
         <form
-          className="flex flex-col gap-3"
+          className="flex flex-col gap-2"
           onSubmit={(event) => {
             event.preventDefault()
             // TODO(backend): connect to the Google Apps Script backend once
@@ -69,11 +72,11 @@ export default function About() {
             name="feedback-message"
             rows={5}
             placeholder="Tulis masukan atau kritikmu di sini..."
-            className="w-full rounded-xl bg-surface-container p-4 font-body-lg text-body-lg text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
+            className="w-full rounded-xl bg-surface-container p-3 font-body-lg text-body-lg text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
           />
           <button
             type="submit"
-            className="self-start bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-full shadow-sm hover:shadow-md transition-shadow active:scale-95 transition-transform"
+            className="self-start bg-primary text-on-primary font-label-md text-label-md px-5 py-2.5 rounded-full shadow-sm hover:shadow-md transition-shadow active:scale-95 transition-transform"
           >
             Submit Feedback
           </button>

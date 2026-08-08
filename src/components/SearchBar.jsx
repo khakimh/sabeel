@@ -7,7 +7,7 @@ import Icon from './Icon'
 // full-opacity placeholder and a default-sized icon. Rather than
 // duplicating the whole component for those differences, `className`/
 // `iconClassName` carry only the classes that actually vary, defaulted to
-// Home's exact existing values so its call site is unaffected.
+// Home's values so its call site is unaffected by Masjid's own override.
 //
 // Kajian's variant (trailing mic button) is still deliberately not built
 // here — same discipline as KajianCard/VideoCard: each page's own variant
@@ -17,10 +17,15 @@ import Icon from './Icon'
 // `aria-label` is required here — the placeholder is the only text hint in
 // the design, and a placeholder alone is not a valid accessible name (it
 // disappears on input and isn't reliably announced by all assistive tech).
+//
+// Density pass (explicitly requested): Home's default height trimmed from
+// h-14 (56px) to h-12 (48px) — still above the 44px minimum comfortable
+// touch target. Masjid passes its own full className override already, so
+// this default change has no effect there.
 export default function SearchBar({
   placeholder,
-  className = 'h-14 bg-surface-container rounded-[18px] placeholder:text-on-surface-variant/60',
-  iconClassName = 'text-[24px]',
+  className = 'h-12 bg-surface-container rounded-[18px] placeholder:text-on-surface-variant/60',
+  iconClassName = 'text-[22px]',
 }) {
   return (
     <div className="relative w-full">
