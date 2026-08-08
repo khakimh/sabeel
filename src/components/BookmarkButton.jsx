@@ -11,14 +11,19 @@ import { useBookmark } from '../hooks/useBookmark'
 // glyph/fill toggles — unlike Home's and Kajian's, which do turn
 // primary-colored. Defaults preserve Home's exact existing behavior.
 //
-// `hover:text-primary transition-colors` and the focus-visible ring are
-// baked in here rather than repeated per call site: all 3 current
-// consumers (Home, Masjid, Kajian) already asked for the identical
-// hover/transition treatment, so it's a genuine repeated pattern, not a
-// speculative one — and one consumer had dropped the focus outline
-// (`focus:outline-none`) with no replacement, a real keyboard-accessibility
-// gap. Owning focus/hover here once fixes that gap for every consumer
-// instead of re-deciding it ad hoc per call site.
+// `hover:text-primary transition-colors` is baked in here rather than
+// repeated per call site: all 4 current consumers (Home, Masjid, Kajian,
+// Library reuses this shape too) already ask for the identical
+// hover/transition treatment.
+//
+// VISUAL REDESIGN (approved): the custom `focus:outline-none
+// focus-visible:ring-2 ...` this used to carry is removed — that
+// `focus:outline-none` was silently defeating the app-wide :focus-visible
+// outline now defined once in styles/index.css (Tailwind's utilities
+// layer beats `@layer base` regardless of specificity), which was a real
+// accessibility regression waiting to happen the moment a shared rule was
+// introduced. Every bookmark button now gets the same global focus ring as
+// everything else, for free, with less code here.
 export default function BookmarkButton({
   id,
   defaultBookmarked = false,
@@ -38,9 +43,7 @@ export default function BookmarkButton({
         event.stopPropagation()
         toggle()
       }}
-      className={`hover:text-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 ${className} ${
-        bookmarked ? activeClassName : inactiveClassName
-      }`}
+      className={`hover:text-primary transition-colors ${className} ${bookmarked ? activeClassName : inactiveClassName}`}
     >
       <Icon name={bookmarked ? 'bookmark' : 'bookmark_border'} className={iconClassName} filled={bookmarked} />
     </button>

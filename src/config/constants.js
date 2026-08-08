@@ -1,8 +1,20 @@
-// Reused directly from the Stitch project — these are the actual asset URLs
-// Stitch's own export references (not locally re-hosted), per "reuse assets
-// from Stitch, do not replace images/icons."
-export const SABEEL_LOGO_URL =
-  'https://lh3.googleusercontent.com/aida-public/AB6AXuAFHCokyEOjuYIIX-8ttZ7yyNxjFeRwzlrFy-9imPJkjKvmjwrIUGD233vHw-11q56u-DfaSBqdW46kOsVYXGXU64WdB9_cNdjixQPIx-B0062uc-Fie0KZPS9h4HUJIGPJXaEacstMNFN6zV-nhXJxnCKi-UNtq9XW4PubM7mjC_4eceQHNgOxiRCXBMhGsc847mog6vxAmjfWfP63mP4EVGffyCCaFWI1i3cvC7OHHcpzMaxZUQpgvA'
+// The project's own landscape wordmark, added as `frontend/sabeel-logo.png`
+// and moved here to `public/assets/images/` (the established convention for
+// locally-hosted static assets — see docs/architecture.md's folder
+// conventions) so Vite actually serves it; a file sitting outside
+// `public/`/`src/` isn't included in the build at all.
+//
+// The source file is a 1000x1000 canvas with the actual wordmark occupying
+// only a ~935x209 landscape region in the middle (confirmed by computing
+// its non-transparent pixel bounding box) — the rest is transparent
+// padding. Serving it at that native 1:1 ratio and constraining it to a
+// header-scale height would render the wordmark at only a few px tall,
+// effectively invisible. The file used here is losslessly cropped to that
+// content region (plus a small even margin) — every wordmark pixel is
+// untouched, nothing was redrawn, resized, or recolored; only the
+// surrounding empty canvas was trimmed, which is why it now has its true
+// ~3.9:1 landscape aspect ratio.
+export const SABEEL_LOGO_URL = '/assets/images/sabeel-logo.png'
 
 // Same avatar used in the AppHeader (top-right) and the Profile page in the
 // Stitch export — one placeholder "current user" for the whole app.

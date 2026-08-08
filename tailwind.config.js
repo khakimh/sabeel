@@ -1,20 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 //
-// IMPORTANT: this theme.extend block is ported VERBATIM from the tailwind-config
-// <script> embedded in every Stitch-exported screen (Beranda, Kajian, Masjid,
-// Perpustakaan, Profil) — re-verified live against the Stitch MCP project
-// (projects/16403309371103694612) before writing this file, not from memory.
-// Do not "fix" or extend it based on the Sabeel Design System markdown doc —
-// that doc and this generated config disagree in a few places (e.g. the
-// border-radius scale, and the doc's fontSize scale was never wired in here
-// at all), and pixel-exact parity with what Stitch actually renders means
-// keeping those discrepancies, not resolving them.
-//
-// Tailwind v4 is CSS-config-first by default, but this JS config is bridged
-// in via the `@config` directive in src/styles/index.css — that keeps the
-// exact same verified token values/format rather than hand-translating every
-// value into v4's newer @theme CSS syntax, which would risk subtle drift on
-// a "do not change colors/spacing/typography" requirement.
+// VISUAL REDESIGN (approved): this theme was originally ported verbatim from
+// Stitch's generated tailwind-config script to pixel-match Stitch's literal
+// render. That constraint is lifted for this redesign — colors/spacing are
+// still the exact values Stitch generated (brand identity preserved:
+// primary #006a64, secondary/primary-container #4ba8a0), but `fontSize`,
+// `borderRadius.card`, `boxShadow.soft`, and the two new neutral colors
+// below are now real, deliberately authored values, sourced from Stitch's
+// own written "Sabeel Design System" doc (fetched live via the Stitch MCP,
+// project 16403309371103694612 — not invented), which was itself never
+// wired into the generated config before now. Weights in that doc lean
+// bold/700; per the approved redesign brief ("prefer medium/semibold over
+// bold everywhere") every size below is paired with 500/600 weight classes
+// at each call site, not baked into the fontSize tuple (Tailwind's fontSize
+// theme doesn't carry a weight).
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
   darkMode: 'class',
@@ -68,12 +67,24 @@ export default {
         'surface-container-low': '#eff4ff',
         'on-surface': '#121c2a',
         'tertiary-fixed-dim': '#c4c7ca',
+        // New for the visual redesign, sourced from Stitch's "Sabeel Design
+        // System" doc (not invented): a neutral hairline border for the new
+        // border-first card containment model, and a flatter neutral input
+        // background distinct from the M3-generated (bluish) surface tokens
+        // above. Used only by the redesign — every existing token is
+        // untouched.
+        hairline: '#e9ecef',
+        'surface-input': '#f3f4f6',
       },
       borderRadius: {
         DEFAULT: '0.25rem',
         lg: '0.5rem',
         xl: '0.75rem',
         full: '9999px',
+        // New: the one standardized "content card" radius for the redesign
+        // (Kajian/Mosque/Video cards) — replaces the mix of rounded-[18px]/
+        // rounded-[20px] arbitrary values those cards used individually.
+        card: '1rem',
       },
       spacing: {
         '3xl': '64px',
@@ -93,6 +104,33 @@ export default {
         'display-lg-mobile': ['Inter'],
         'body-sm': ['Inter'],
         'label-md': ['Inter'],
+      },
+      // New for the redesign: a real fontSize scale, keyed to the same
+      // names already used as `text-*` classes throughout every component
+      // (previously no-ops — Tailwind never generates a rule for a
+      // fontSize key that doesn't exist, so `text-headline-md` etc. did
+      // nothing before this). Wiring them under these exact names means
+      // most existing markup gets correct sizing with zero className
+      // changes; `card-title` is the one genuinely new tier, for
+      // content-entity card titles (Kajian/Mosque/Video) that need to read
+      // slightly smaller than a section header but distinct from plain
+      // body text — see docs/architecture.md's Typography conventions.
+      fontSize: {
+        'display-lg-mobile': ['22px', { lineHeight: '1.25' }],
+        'headline-md': ['17px', { lineHeight: '1.3' }],
+        'card-title': ['15px', { lineHeight: '1.35' }],
+        'body-lg': ['15px', { lineHeight: '1.55' }],
+        'body-sm': ['13px', { lineHeight: '1.45' }],
+        'label-md': ['13px', { lineHeight: '1.3' }],
+        'label-sm': ['11px', { lineHeight: '1.3', letterSpacing: '0.03em' }],
+      },
+      // New: one standardized soft shadow for content cards, replacing the
+      // several slightly-different arbitrary shadow values
+      // (`shadow-[0_4px_20px_rgba(0,0,0,0.05)]` /`...0.03)]` etc.) those
+      // cards used individually. Value is Stitch's own design-system doc's
+      // "Soft Elevation" spec verbatim.
+      boxShadow: {
+        soft: '0 4px 20px rgba(0, 0, 0, 0.05)',
       },
     },
   },

@@ -11,11 +11,14 @@ import InfoCard from '../components/InfoCard'
 // from AppHeader's chrome (which is a styled span, not a heading) — the 4
 // section titles below are h2s under it.
 //
-// Density pass (explicitly requested): page padding and inter-card gap
-// trimmed one step.
+// VISUAL REDESIGN (approved): editorial/minimal per the redesign brief —
+// InfoCard dropped its card shell and now owns its own vertical rhythm
+// (py-4 + a hairline divider between sections), so the page-level `gap-sm`
+// that used to sit between card-wrapped sections was removed entirely;
+// keeping it would have doubled up with InfoCard's own padding.
 export default function About() {
   return (
-    <div className="flex flex-col w-full px-md py-sm gap-sm">
+    <div className="flex flex-col w-full px-md py-sm">
       <h1 className="sr-only">Tentang Sabeel</h1>
 
       <InfoCard icon="info" title="Tentang Sabeel">
@@ -52,8 +55,7 @@ export default function About() {
 
       <InfoCard icon="feedback" title="Feedback">
         <p>
-          &quot;Ada masanya development Sabeel melanggar batasan. Jika kamu menemukan sesuatu yang menurutmu kurang
-          tepat atau perlu diperbaiki, mohon ingatkan developers di sini.&quot;
+          &quot;Akan ada masanya development Sabeel melanggar batasan. Mohon ingatkan kami di sini.&quot;
         </p>
         <form
           className="flex flex-col gap-2"
@@ -72,11 +74,11 @@ export default function About() {
             name="feedback-message"
             rows={5}
             placeholder="Tulis masukan atau kritikmu di sini..."
-            className="w-full rounded-xl bg-surface-container p-3 font-body-lg text-body-lg text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-2 focus:ring-primary/50 resize-none"
+            className="w-full rounded-xl bg-surface-input p-3 font-body-lg text-body-lg text-on-surface placeholder:text-on-surface-variant border border-transparent focus:border-primary transition-colors resize-none"
           />
           <button
             type="submit"
-            className="self-start bg-primary text-on-primary font-label-md text-label-md px-5 py-2.5 rounded-full shadow-sm hover:shadow-md transition-shadow active:scale-95 transition-transform"
+            className="self-start min-h-11 bg-primary text-on-primary font-body-lg text-body-lg font-semibold px-5 py-2.5 rounded-full shadow-soft active:scale-95 transition-transform"
           >
             Submit Feedback
           </button>

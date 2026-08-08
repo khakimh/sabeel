@@ -1,30 +1,52 @@
 @import 'tailwindcss';
 @config "../../tailwind.config.js";
 
-/* Ported verbatim from the <style> blocks embedded in every Stitch-exported
-   screen (Beranda, Kajian, Masjid, Perpustakaan, Profil). Do not add/change
-   rules here without a design change request — this is the "as designed"
-   baseline. In particular, do NOT add a font-size theme scale to make
-   text-headline-md/text-body-lg/etc "work" — those utilities are already
-   no-ops in the real Stitch export (no fontSize theme key was ever wired up
-   there either), confirmed against the actual Stitch screenshot.
+/* VISUAL REDESIGN (approved): base layer updated for the new visual
+   language. Structure/mechanics below are otherwise unchanged from the
+   original Stitch-ported baseline (safe-area helpers, Material Symbols
+   FILL rules, body min-height guard).
 
-   Exception: `line-height` below was added for the app-wide UI density
-   pass (explicitly requested) — it tightens every wrapped title and
-   stacked meta row at once without touching any individual font-size, and
-   is deliberately the ONLY typography lever changed globally; sizes/colors
-   are untouched everywhere. */
+   The "no fontSize theme key" note that used to live here no longer
+   applies — tailwind.config.js now wires a real fontSize scale under
+   these same class names, sourced from Stitch's own design-system doc
+   (see that file's comment). `line-height` below is relaxed from the
+   density pass's blanket 1.35 back to a standard, comfortable 1.5:
+   specific text tiers now carry their own tuned line-height via the
+   fontSize scale, so this value only matters as the fallback for text
+   with no explicit size class, where readability should win over
+   tightness. */
 @layer base {
   body {
     -webkit-tap-highlight-color: transparent;
     scroll-behavior: smooth;
-    line-height: 1.35;
+    line-height: 1.5;
   }
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);
   }
   .pt-safe {
     padding-top: env(safe-area-inset-top);
+  }
+  /* One consistent, clearly visible focus indicator for every interactive
+     element app-wide (buttons, links, inputs, textareas) — satisfies the
+     redesign's accessibility guardrail without hand-adding a focus-visible
+     class to every call site individually. Uses :focus-visible (not
+     :focus) so it only appears for keyboard/assistive-tech focus, not
+     every mouse click. Deliberately no border-radius override here: it
+     would force square-ish corners onto every circular/pill element
+     (nav icons, the Kajian FAB, bookmark buttons) on focus — each
+     element's own rounding is left to apply naturally.
+     Components must NOT add their own `focus:outline-none` — that utility
+     lives in Tailwind's utilities layer, which wins over this @layer base
+     rule regardless of selector specificity, silently breaking this for
+     that element. */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid #006a64;
+    outline-offset: 2px;
   }
 }
 

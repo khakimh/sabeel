@@ -1,17 +1,21 @@
-// Profile's settings-group card wrapper: an optional uppercase label above
-// a set of SettingsItem rows. Repeated 3 times on this screen — the third
-// group has no label, matching Stitch's own markup exactly (`label` is
-// optional here for that reason, not for speculative reuse).
-// Density pass (explicitly requested): row gap and label padding trimmed
-// one step.
+// Profile's settings-group wrapper: an optional uppercase label above a
+// set of SettingsItem rows.
+//
+// VISUAL REDESIGN (approved): dropped the white/rounded/shadowed card
+// shell entirely — Profile settings are explicitly called out to be a
+// flat, borderless list (SettingsItem's own hairline row dividers now do
+// the grouping work a card border used to). `label` stays optional since
+// the 3rd group genuinely has none.
 /** @param {{ label?: string, children: React.ReactNode }} props */
 export default function SettingsGroup({ label, children }) {
   return (
-    <div className="bg-surface-container-lowest rounded-[18px] shadow-sm p-2 flex flex-col gap-1">
+    <div className="flex flex-col">
       {label && (
-        <h2 className="font-label-sm text-label-sm text-primary uppercase tracking-wider px-3 pt-1.5">{label}</h2>
+        <h2 className="font-label-sm text-label-sm font-semibold text-primary uppercase tracking-wide px-1 pb-2">
+          {label}
+        </h2>
       )}
-      {children}
+      <div className="flex flex-col">{children}</div>
     </div>
   )
 }

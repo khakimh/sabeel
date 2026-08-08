@@ -1,6 +1,9 @@
 // Single source of truth for the bottom navigation + header titles per
-// screen. Matches the `data-path` values present in the Stitch export
-// (beranda / masjid / kajian / perpustakaan / profil) 1:1.
+// screen.
+//
+// Masjid is restored as the 2nd item (per explicit instruction) using its
+// existing route/icon/config — it was temporarily removed during the
+// visual redesign and is now back exactly where it was before that.
 export const NAV_ITEMS = [
   { path: 'beranda', route: '/', label: 'Beranda', headerTitle: 'Beranda', icon: 'home', fab: false },
   { path: 'masjid', route: '/masjid', label: 'Masjid', headerTitle: 'Masjid', icon: 'mosque', fab: false },
@@ -21,12 +24,11 @@ export function navItemForRoute(pathname) {
 }
 
 // Routes that render inside the same persistent AppLayout shell but aren't
-// one of the 5 primary bottom-nav tabs above (currently just the About
-// settings drill-down, reached by tapping "Tentang Sabeel" on Profile).
-// Extend this map — not NAV_ITEMS — for any future page reached by drilling
-// into a tab rather than by tapping the bottom nav directly; adding an
-// entry here never adds a 6th bottom-nav tab, since BottomNavigation only
-// ever maps over NAV_ITEMS.
+// one of the bottom-nav tabs above (currently just the About settings
+// drill-down). Extend this map — not NAV_ITEMS — for any future page
+// reached by drilling into a tab rather than by tapping the bottom nav
+// directly; adding an entry here never adds a tab, since BottomNavigation
+// only ever maps over NAV_ITEMS.
 const SECONDARY_ROUTE_TITLES = {
   '/about': 'Tentang Sabeel',
 }

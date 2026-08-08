@@ -1,29 +1,25 @@
 import Icon from './Icon'
 
-// A titled content card: icon badge + heading, then freeform body content.
-// Used 4 times on the About page. Reuses the same card treatment already
-// established across the app — rounded-[18px]/shadow-sm/bg-surface-container-lowest
-// (SettingsGroup, MosqueCard) and the same accent icon-badge treatment
-// already used by SettingsItem's "accent" variant — rather than inventing
-// a new visual language for this page. Generic enough to be worth keeping
-// as a real component: any future static/informational page (Help,
-// Privacy, Terms) would want the same icon+title+body card shape.
-// Density pass (explicitly requested): padding and internal gaps trimmed
-// one step; leading-relaxed → leading-snug on the body text (tighter
-// line-height, same font-size).
+// A titled content section on the About page: icon + heading, then
+// freeform body content.
+//
+// VISUAL REDESIGN (approved): About is explicitly called out to feel
+// "editorial and minimal... hierarchy through typography and spacing
+// rather than excessive cards" — so this dropped the white/
+// border/shadow/radius card shell it used to have (and the icon's round
+// accent-tinted badge, simplified to a plain icon next to the title) in
+// favor of a flat section separated from the next one by a hairline
+// divider. Same component, same call sites in About.jsx — just no longer
+// a "card."
 /** @param {{ icon: string, title: string, children: React.ReactNode }} props */
 export default function InfoCard({ icon, title, children }) {
   return (
-    <div className="bg-surface-container-lowest rounded-[18px] shadow-sm p-md flex flex-col gap-sm">
-      <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-primary-container/20 text-primary flex items-center justify-center shrink-0">
-          <Icon name={icon} />
-        </div>
-        <h2 className="font-headline-md text-headline-md text-on-surface">{title}</h2>
+    <div className="flex flex-col gap-3 py-4 border-b border-hairline last:border-b-0">
+      <div className="flex items-center gap-2.5">
+        <Icon name={icon} className="text-primary text-[20px]" />
+        <h2 className="font-headline-md text-headline-md font-semibold text-on-surface">{title}</h2>
       </div>
-      <div className="flex flex-col gap-2 font-body-lg text-body-lg text-on-surface-variant leading-snug">
-        {children}
-      </div>
+      <div className="flex flex-col gap-2.5 font-body-lg text-body-lg text-on-surface-variant">{children}</div>
     </div>
   )
 }

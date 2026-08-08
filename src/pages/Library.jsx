@@ -13,9 +13,14 @@ import { getLibraryVideos } from '../services/libraryService'
 // nothing to toggle away from (Stitch's own export doesn't wire either of
 // these up as an actual switcher either).
 //
-// Density pass (explicitly requested): outer/section gaps trimmed one
-// step so more VideoCardListItems fit above the fold; the tab row's own
-// vertical padding is untouched (already a comfortable touch target).
+// VISUAL REDESIGN (approved): tab pills bumped to the 44px touch-target
+// row height (for alignment consistency — "Kajian Online" itself is a
+// static label, not interactive, but sitting in a row of pills at a
+// consistent height reads as one considered control group). Both the
+// section heading and the "Lihat Semua" action were missing an explicit
+// text-size utility entirely before this (inheriting whatever ambient
+// size applied) — now explicitly sized/weighted to match every other
+// section header in the app.
 export default function Library() {
   const videos = getLibraryVideos()
 
@@ -23,7 +28,7 @@ export default function Library() {
     <div className="flex flex-col w-full gap-sm">
       {/* Content type tabs */}
       <div className="px-md flex gap-sm overflow-x-auto py-sm [&::-webkit-scrollbar]:hidden">
-        <span className="bg-primary text-on-primary font-label-md px-md py-sm rounded-full whitespace-nowrap shadow-sm flex items-center gap-xs">
+        <span className="bg-primary text-on-primary font-label-md text-label-md font-medium px-4 h-11 rounded-full whitespace-nowrap flex items-center gap-1.5">
           <Icon name="play_circle" className="!text-[18px]" />
           Kajian Online
         </span>
@@ -31,11 +36,11 @@ export default function Library() {
           type="button"
           disabled
           aria-label="Catatan — segera hadir"
-          className="bg-surface-container text-on-surface font-label-md px-md py-sm rounded-full whitespace-nowrap flex items-center gap-xs opacity-70"
+          className="bg-surface-input text-on-surface-variant font-label-md text-label-md font-medium px-4 h-11 rounded-full whitespace-nowrap flex items-center gap-1.5 opacity-70"
         >
           <Icon name="edit_document" className="!text-[18px]" />
           Catatan
-          <span className="text-[10px] bg-tertiary-container text-on-tertiary-container px-2 py-0.5 rounded-full ml-1">
+          <span className="font-label-sm text-label-sm font-medium bg-tertiary-container text-on-tertiary-container px-2 py-0.5 rounded-full ml-1">
             Segera
           </span>
         </button>
@@ -43,10 +48,10 @@ export default function Library() {
 
       {/* Section header */}
       <div className="px-md flex items-center justify-between mt-1">
-        <h2 className="font-headline-md text-on-surface">Kajian Terbaru</h2>
+        <h2 className="font-headline-md text-headline-md font-semibold text-on-surface">Kajian Terbaru</h2>
         <button
           type="button"
-          className="text-primary font-label-sm flex items-center gap-xs hover:bg-primary/5 px-2 py-1 rounded-lg transition-colors"
+          className="min-h-11 text-primary font-label-md text-label-md font-medium flex items-center gap-xs hover:bg-primary/5 px-2 rounded-lg transition-colors"
         >
           Lihat Semua
           <Icon name="arrow_forward" className="!text-[16px]" />
