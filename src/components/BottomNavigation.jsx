@@ -31,13 +31,23 @@ import { NAV_ITEMS } from '../config/nav'
 // under the 44px floor. Switched to `items-stretch` so every NavLink fills
 // the full bar height; each one's own `justify-center` keeps its icon+label
 // vertically centered inside that taller tap area.
+//
+// FAB vertical position: the wrapper's negative top margin controls how
+// far the 56px FAB overhangs above the bar's top edge — measured (not
+// guessed) at -mt-8 (-32px): 32px overhang, only 24px overlapping into the
+// 80px bar, leaving a visibly large empty gap above it. Reduced to -mt-6
+// (-24px) — 24px overhang / 32px overlap — the smallest change that
+// noticeably closes that gap while the FAB (still 56px, unchanged) stays
+// clearly elevated above the regular tabs and keeps overlapping the bar's
+// top edge. FAB size/color/icon/shape/shadow, bar height, and every other
+// item's position are untouched.
 export default function BottomNavigation() {
   return (
     <nav className="fixed bottom-0 w-full z-50 pb-safe bg-surface/80 backdrop-blur-xl border-t border-hairline">
       <div className="flex items-stretch justify-between h-20 px-md relative">
         {NAV_ITEMS.map((item) =>
           item.fab ? (
-            <div key={item.path} className="flex-1 flex justify-center -mt-8">
+            <div key={item.path} className="flex-1 flex justify-center -mt-6">
               <NavLink
                 to={item.route}
                 className={({ isActive }) =>
