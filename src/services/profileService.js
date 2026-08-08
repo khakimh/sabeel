@@ -37,6 +37,6 @@ export const SETTINGS_GROUPS = [
   },
   {
     label: null,
-    items: [{ icon: 'info', label: 'Tentang Sabeel' }],
+    items: [{ icon: 'info', label: 'Tentang Sabeel', to: '/about' }],
   },
 ]

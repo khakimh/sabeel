@@ -16,7 +16,13 @@ export default function Profile() {
         {SETTINGS_GROUPS.map((group, index) => (
           <SettingsGroup key={group.label ?? `group-${index}`} label={group.label}>
             {group.items.map((item) => (
-              <SettingsItem key={item.label} icon={item.icon} label={item.label} iconVariant={item.iconVariant} />
+              <SettingsItem
+                key={item.label}
+                icon={item.icon}
+                label={item.label}
+                iconVariant={item.iconVariant}
+                to={item.to}
+              />
             ))}
           </SettingsGroup>
         ))}
